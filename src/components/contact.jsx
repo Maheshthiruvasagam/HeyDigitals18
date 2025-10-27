@@ -1,42 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
-// --- INLINE ICONS ---
-
-// SVG Icon for Email
-const FaEnvelope = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" className="w-5 h-5 text-gray-500">
-    <path d="M48 64C21.5 64 0 85.5 0 112v288c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H48zM48 96h416c8.8 0 16 7.2 16 16v41.4l-217.6 136c-11.4 7.1-25.1 7.1-36.5 0L32 153.4V112c0-8.8 7.2-16 16-16zm416 320H48c-8.8 0-16-7.2-16-16V195l216.1 135.1c11.4 7.1 25.1 7.1 36.5 0L496 195v197c0 8.8-7.2 16-16 16z"/>
-  </svg>
-);
-
-// SVG Icon for Instagram
-const FaInstagram = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" className="w-6 h-6 text-gray-700 hover:text-pink-500 transition-colors">
-    <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9 26.3 26.2 58 34.4 93.9 36.2 37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
-  </svg>
-);
-
-// SVG Icon for LinkedIn
-const FaLinkedin = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" className="w-6 h-6 text-gray-700 hover:text-blue-700 transition-colors">
-    <path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5S123.4 173 102.2 173zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.5 0-39.8 27-39.8 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/>
-  </svg>
-);
-
-// SVG Icon for Clock
-const FaClock = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" className="w-8 h-8 text-blue-600">
-    <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zm0 464c-114.7 0-208-93.3-208-208S141.3 48 256 48s208 93.3 208 208S370.7 464 256 464zM312 256c0 6.6-5.4 12-12 12h-88c-6.6 0-12-5.4-12-12v-64c0-6.6 5.4-12 12-12s12 5.4 12 12v52h76c6.6 0 12 5.4 12 12v0z"/>
-  </svg>
-);
-
-// SVG Icon for Map Marker
-const FaMapMarkerAlt = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill="currentColor" className="w-8 h-8 text-blue-600">
-    <path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67c-9.54 13.23-29.92 13.23-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"/>
-  </svg>
-);
+import { 
+  FaEnvelope, 
+  FaInstagram, 
+  FaLinkedin, 
+  FaClock, 
+  FaMapMarkerAlt 
+} from 'react-icons/fa';
 
 // --- FAQ Data ---
 const faqItems = [
@@ -46,7 +16,7 @@ const faqItems = [
   },
   {
     question: 'How long does it take to get a response?',
-    answer: 'We typically respond to all inquiries within 24-48 business hours. If you contact us on a weekend, we will get back to you on the next business day.',
+    answer: 'We typically respond to all inquiries within 24-48 business hours (Mon-Fri). If you contact us on a weekend, we will get back to you on the next business day.',
   },
   {
     question: 'Do you offer free consultations?',
@@ -94,7 +64,7 @@ const Contact = () => {
             <h2 className="text-3xl font-bold text-gray-900 mb-6">Send us a Message</h2>
             
             <form
-              action="https://formspree.io/f/meopqbbo"
+              action="https://formsubmit.co/mahi09042006@gmail.com" // Your correct email
               method="POST"
               className="space-y-6"
             >
@@ -182,9 +152,9 @@ const Contact = () => {
               
               {/* Email */}
               <div className="flex items-center space-x-3 mb-4">
-                <FaEnvelope />
+                <FaEnvelope className="w-5 h-5 text-gray-500" />
                 <a 
-                  href="mailto:heydigitals@gmail.com" 
+                  href="mailto:heydigitals.care@gmail.com" // Corrected email
                   className="text-gray-600 hover:text-blue-600"
                 >
                   heydigitals.care@gmail.com
@@ -194,10 +164,10 @@ const Contact = () => {
               {/* Socials */}
               <div className="flex space-x-4">
                 <a href="https://www.instagram.com/heydigitals.agency?igsh=dGJldnBvaDhybWx0" target="_blank" rel="noopener noreferrer">
-                  <FaInstagram />
+                  <FaInstagram className="w-6 h-6 text-gray-700 hover:text-pink-500 transition-colors" />
                 </a>
                 <a href="https://www.linkedin.com/company/hey-digitals/" target="_blank" rel="noopener noreferrer">
-                  <FaLinkedin />
+                  <FaLinkedin className="w-6 h-6 text-gray-700 hover:text-blue-700 transition-colors" />
                 </a>
               </div>
             </div>
@@ -218,14 +188,14 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* --- NEW SECTION: Availability & Location --- */}
+        {/* Section 3: Availability & Location */}
         <div className="py-16 md:py-24">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             
             {/* Availability */}
             <div className="bg-gray-50 p-8 rounded-lg border border-gray-200">
               <div className="flex items-center mb-4">
-                <FaClock />
+                <FaClock className="w-8 h-8 text-blue-600" />
                 <h3 className="text-2xl font-bold text-gray-900 ml-3">Our Availability</h3>
               </div>
               <p className="text-gray-600 mb-4">
@@ -250,7 +220,7 @@ const Contact = () => {
             {/* Location (Placeholder) */}
             <div className="bg-gray-50 p-8 rounded-lg border border-gray-200">
               <div className="flex items-center mb-4">
-                <FaMapMarkerAlt />
+                <FaMapMarkerAlt className="w-8 h-8 text-blue-600" />
                 <h3 className="text-2xl font-bold text-gray-900 ml-3">Our Location</h3>
               </div>
               <p className="text-gray-600 mb-4">
@@ -270,7 +240,7 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* --- NEW FAQ SECTION --- */}
+        {/* Section 4: FAQ SECTION */}
         <div className="pb-16 md:pb-24">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <h2 className="text-3xl md:text-4xl font-extrabold mb-4">
